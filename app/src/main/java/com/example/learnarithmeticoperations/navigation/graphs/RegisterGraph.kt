@@ -6,11 +6,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.example.learnarithmeticoperations.core.Constants.LOGIN
-import com.example.learnarithmeticoperations.core.Constants.LOGIN_OR_SIGNUP
 import com.example.learnarithmeticoperations.core.Constants.REGISTER_ROUTE
-import com.example.learnarithmeticoperations.core.Constants.SIGNUP
 import com.example.learnarithmeticoperations.core.Constants.WELCOME_SCREEN
+import com.example.learnarithmeticoperations.navigation.Screen.WelcomeScreen
+import com.example.learnarithmeticoperations.navigation.Screen.LoginOrSignup
+import com.example.learnarithmeticoperations.presentation.signupOrLogin.LoginOrSignupScreen
 import com.example.learnarithmeticoperations.presentation.welcome.WelcomeScreen
 
 fun NavGraphBuilder.registerGraph(
@@ -18,13 +18,13 @@ fun NavGraphBuilder.registerGraph(
 ) {
     navigation(
         route = REGISTER_ROUTE,
-        startDestination = WELCOME_SCREEN
+        startDestination = WelcomeScreen.route
     ) {
         composable(route = WELCOME_SCREEN) {
             WelcomeScreen(
                 {
                     navController.popBackStack()
-                    navController.navigate(LOGIN_OR_SIGNUP)
+                    navController.navigate(LoginOrSignup.route)
                 },
                 {
                     navController.popBackStack()
@@ -34,14 +34,18 @@ fun NavGraphBuilder.registerGraph(
                     .fillMaxSize()
             )
         }
-        composable(route = LOGIN_OR_SIGNUP) {
-
-        }
-        composable(route = LOGIN) {
-
-        }
-        composable(route = SIGNUP) {
-
+        composable(route = LoginOrSignup.route) {
+            LoginOrSignupScreen(
+                modifier = Modifier
+                    .fillMaxSize(),
+                {
+                    navController.popBackStack()
+                    navController.navigate("test")
+                },
+                {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

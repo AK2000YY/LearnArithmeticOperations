@@ -8,10 +8,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 
-fun NavGraphBuilder.myAppGraph() {
+fun NavGraphBuilder.myAppGraph(
+    navController: NavHostController
+) {
     navigation(
         route = "test",
         startDestination = "test1"

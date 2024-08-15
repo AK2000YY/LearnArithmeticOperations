@@ -1,14 +1,13 @@
 package com.example.learnarithmeticoperations.presentation.welcome
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.learnarithmeticoperations.presentation.welcome.component.Welcome
 import com.example.learnarithmeticoperations.response.Response
+import kotlinx.coroutines.delay
 
 @Composable
 fun WelcomeScreen(
@@ -17,21 +16,23 @@ fun WelcomeScreen(
     modifier: Modifier = Modifier,
     viewModel: WelcomeViewModel = hiltViewModel()
 ) {
-    Box(
-        modifier = modifier,
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = "Welcome",
-            style = MaterialTheme.typography.titleLarge,
-            fontSize = 40.sp
+
+    Scaffold(
+        modifier = modifier
+    ) { padding ->
+        Welcome(
+            paddingValues = padding
         )
     }
 
-    when(viewModel.welcomeStatus) {
-        Response.Success(true) -> navToMyApp()
-        Response.Failure("No User") -> navToSignupOrLogin()
-        else -> {}
+    LaunchedEffect(true) {
+        delay(2000)
+        println("ak2000000000000y0y0y00y0y0yy0")
+        when(viewModel.welcomeStatus) {
+            Response.Success -> navToMyApp()
+            Response.Failure("No User") -> navToSignupOrLogin()
+            else -> {}
+        }
     }
 
 }

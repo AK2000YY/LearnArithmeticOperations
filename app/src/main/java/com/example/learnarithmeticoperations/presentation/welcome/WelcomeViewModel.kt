@@ -17,11 +17,11 @@ class WelcomeViewModel @Inject constructor(
     private val repo: AuthRepository
 ): ViewModel() {
 
-    var welcomeStatus by mutableStateOf<Response<Boolean>>(Loading)
+    var welcomeStatus by mutableStateOf<Response>(Loading(false))
         private set
 
     init {
-        if(repo.getAuthState()) welcomeStatus = Success(true)
+        welcomeStatus = if(repo.getAuthState()) Success
         else Failure("No User")
     }
 

@@ -18,6 +18,8 @@ fun NavSetup(
         registerGraph(
             navController = navController
         )
-        myAppGraph()
+        myAppGraph(
+            navController = navController
+        )
     }
 }

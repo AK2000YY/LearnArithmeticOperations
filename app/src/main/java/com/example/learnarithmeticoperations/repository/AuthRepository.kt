@@ -19,10 +19,10 @@ class AuthRepository @Inject constructor(
     suspend fun signUp(
         email: String,
         password: String
-    ): Response<Boolean> =
+    ): Response =
         try {
             auth.createUserWithEmailAndPassword(email, password).await()
-            Success(true)
+            Success
         }catch(e: Exception) {
             Failure(e.message.toString())
         }
@@ -30,10 +30,10 @@ class AuthRepository @Inject constructor(
     suspend fun login(
         email: String,
         password: String
-    ): Response<Boolean> =
+    ): Response =
         try {
             auth.signInWithEmailAndPassword(email, password).await()
-            Success(true)
+            Success
         }catch(e: Exception) {
             Failure(e.message.toString())
         }
