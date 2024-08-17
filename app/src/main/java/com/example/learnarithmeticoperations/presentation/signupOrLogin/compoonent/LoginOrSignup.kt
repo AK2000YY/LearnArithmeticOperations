@@ -1,16 +1,22 @@
 package com.example.learnarithmeticoperations.presentation.signupOrLogin.compoonent
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Calculate
+import androidx.compose.material.icons.filled.Speed
+import androidx.compose.material.icons.filled.SportsMartialArts
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -52,7 +58,7 @@ fun LoginORSignup(
                 .weight(7f)
                 .clip(RoundedCornerShape(topEnd = 25.dp, topStart = 25.dp))
                 .background(
-                    if(isSystemInDarkTheme()) Color.White
+                    if (isSystemInDarkTheme()) Color.White
                     else Color.Gray
                 ),
             choosePart = choosePart,
@@ -107,11 +113,82 @@ fun LoginOrSignupPart(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Button(onClick = { toLogin() }) {
-            Text(text = "Login")
-        }
-        Button(onClick = { toSignup() }) {
-            Text(text = "Signup")
-        }
+        Spacer(modifier = Modifier.weight(2f))
+        PageIndicator(
+            modifier = Modifier
+                .weight(3f),
+            listOfString = listOf(
+                "learn with a lot of example for arithmetic operator",
+                "make your self fast in calculate numbers",
+                "make learning operation simple by this app"
+            ),
+            listOfIcons = listOf(
+                Icons.Default.Calculate,
+                Icons.Default.Speed,
+                Icons.Default.SportsMartialArts
+            )
+        )
+        Spacer(modifier = Modifier.weight(2f))
+        Buttons(
+            modifier = Modifier
+                .weight(2.5f)
+                .fillMaxWidth(),
+            toSignup = toSignup,
+            toLogin = toLogin
+        )
+        Spacer(modifier = Modifier.weight(1f))
+    }
+}
+
+@Composable
+fun Buttons(
+    modifier: Modifier = Modifier,
+    toSignup: () -> Unit,
+    toLogin: () -> Unit
+) {
+   Column(
+       modifier = modifier,
+       horizontalAlignment = Alignment.CenterHorizontally,
+   ) {
+       ButtonDesigned(
+           modifier = Modifier
+               .weight(1.0f)
+               .clickable { toLogin() },
+           buttonName = "LOGIN"
+       )
+       Spacer(modifier = Modifier.weight(0.4f))
+       ButtonDesigned(
+           modifier = Modifier
+               .weight(1.0f)
+               .clickable { toSignup() },
+           buttonName = "SIGNUP"
+       )
+   }
+}
+
+@Composable
+fun ButtonDesigned(
+    modifier: Modifier = Modifier,
+    buttonName: String
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp)
+            .background(
+                if (buttonName == "LOGIN") Color.White else Color.Black,
+                RoundedCornerShape(35.dp)
+            )
+            .border(
+                BorderStroke(2.dp, if (buttonName == "LOGIN") Color.Black else Color.White),
+                RoundedCornerShape(35.dp)
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = buttonName,
+            style = MaterialTheme.typography.titleLarge,
+            color = if (buttonName == "LOGIN") Color.Black else Color.White
+        )
     }
 }
