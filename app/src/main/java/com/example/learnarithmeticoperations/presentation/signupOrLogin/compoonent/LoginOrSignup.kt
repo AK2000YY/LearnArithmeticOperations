@@ -58,7 +58,7 @@ fun LoginORSignup(
                 .weight(7f)
                 .clip(RoundedCornerShape(topEnd = 25.dp, topStart = 25.dp))
                 .background(
-                    if (isSystemInDarkTheme()) Color.White
+                    if(isSystemInDarkTheme()) Color.White
                     else Color.Gray
                 ),
             choosePart = choosePart,
@@ -166,29 +166,3 @@ fun Buttons(
    }
 }
 
-@Composable
-fun ButtonDesigned(
-    modifier: Modifier = Modifier,
-    buttonName: String
-) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp)
-            .background(
-                if (buttonName == "LOGIN") Color.White else Color.Black,
-                RoundedCornerShape(35.dp)
-            )
-            .border(
-                BorderStroke(2.dp, if (buttonName == "LOGIN") Color.Black else Color.White),
-                RoundedCornerShape(35.dp)
-            ),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = buttonName,
-            style = MaterialTheme.typography.titleLarge,
-            color = if (buttonName == "LOGIN") Color.Black else Color.White
-        )
-    }
-}
