@@ -2,9 +2,11 @@ package com.example.learnarithmeticoperations.presentation.signupOrLogin.compoon
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -42,14 +44,17 @@ fun LoginORSignup(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(3f)
-                .background(Color.Gray)
+                .background(MaterialTheme.colorScheme.background)
         )
         DownPart(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(7f)
-                .clip(RoundedCornerShape(topEnd = 35.dp, topStart = 35.dp))
-                .background(MaterialTheme.colorScheme.background),
+                .clip(RoundedCornerShape(topEnd = 25.dp, topStart = 25.dp))
+                .background(
+                    if(isSystemInDarkTheme()) Color.White
+                    else Color.Gray
+                ),
             choosePart = choosePart,
             toLogin = { toLogin() },
             toSignup = { toSignup() }
