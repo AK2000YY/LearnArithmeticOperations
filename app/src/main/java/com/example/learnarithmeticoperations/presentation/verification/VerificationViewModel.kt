@@ -31,6 +31,7 @@ class VerificationViewModel @Inject constructor(
         verificationResponse = try {
             while(repo.getAuthState()?.isEmailVerified == false) {
                 delay(3000)
+                repo.getAuthState()?.reload()
                 Log.d("ak2000yy", "from viewModel ${repo.getAuthState()?.isEmailVerified}")
                 Response.Loading(true)
             }
