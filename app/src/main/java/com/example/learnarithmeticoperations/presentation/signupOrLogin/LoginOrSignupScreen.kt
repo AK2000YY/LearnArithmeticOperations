@@ -1,5 +1,6 @@
 package com.example.learnarithmeticoperations.presentation.signupOrLogin
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -24,15 +25,33 @@ fun LoginOrSignupScreen(
             modifier = modifier
                 .padding(padding),
             choosePart = viewModel.choosePart,
+            userName = viewModel.userName,
+            emailLogin = viewModel.emailLogin,
+            emailSignup = viewModel.emailSignup,
+            passwordLogin = viewModel.passwordLogin,
+            passwordSignup = viewModel.passwordSignup,
+            confirmPassword = viewModel.confirmPassword,
             toSignup = { viewModel.toSignup() },
             toLogin = { viewModel.toLogin() },
             toLoginOrSignup = { viewModel.toLoginOrSignupPart() },
-            toCloseApp = { closeApp() }
+            toCloseApp = { closeApp() },
+            login = { viewModel.login() },
+            signup = { viewModel.assertPassword() },
+            editEmailLogin = { viewModel.editEmailLogin(it) },
+            editEmailSignup = { viewModel.editEmailSignup(it) },
+            editUserName = { viewModel.editUserName(it) },
+            editPasswordLogin = { viewModel.editPasswordLogin(it) },
+            editPasswordSignup = { viewModel.editPasswordSignup(it) },
+            editConfirmPassword = { viewModel.editConfirmPassword(it) }
         )
     }
+
     when(val loginOrSignupResponse = viewModel.loginOrSignupResponse) {
         is Response.Loading ->
-            if (loginOrSignupResponse.t) ProgressBar()
+            if (loginOrSignupResponse.t) ProgressBar(
+                modifier = Modifier
+                    .fillMaxSize()
+            )
         is Response.Failure -> loginOrSignupResponse.apply {
             viewModel.showToast(LocalContext.current, e)
         }

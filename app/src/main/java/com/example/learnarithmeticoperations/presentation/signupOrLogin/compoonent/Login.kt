@@ -16,7 +16,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoginPart(modifier: Modifier = Modifier) {
+fun LoginPart(
+    modifier: Modifier = Modifier,
+    email: String,
+    password: String,
+    toLoginOrSignup: () -> Unit,
+    login: () -> Unit,
+    editEmail: (String) -> Unit,
+    editPassword: (String) -> Unit
+) {
     Column(
         modifier = modifier
     ) {
@@ -24,18 +32,25 @@ fun LoginPart(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1.5f),
-            type = "Login"
+            type = "Login",
+            toLoginOrSignup = { toLoginOrSignup() }
         )
         AllTextFieldLogin(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(7f)
+                .weight(7f),
+            email = email,
+            password = password,
+            editEmail = { editEmail(it) },
+            editPassword = { editPassword(it) }
         )
         ButtonDesigned(
             buttonName = " LOGIN ",
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { }
+                .clickable {
+                    login()
+                }
                 .weight(1.5f)
                 .padding(bottom = 20.dp)
         )
@@ -43,7 +58,13 @@ fun LoginPart(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun AllTextFieldLogin(modifier: Modifier = Modifier) {
+fun AllTextFieldLogin(
+    modifier: Modifier = Modifier,
+    email: String,
+    password: String,
+    editEmail: (String) -> Unit,
+    editPassword: (String) -> Unit
+) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -51,8 +72,10 @@ fun AllTextFieldLogin(modifier: Modifier = Modifier) {
     ) {
         TextFieldDesign(
             placeholder = "Email",
-            value = "",
-            editValue = {},
+            value = email,
+            editValue = {
+                editEmail(it)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(75.dp)
@@ -67,8 +90,10 @@ fun AllTextFieldLogin(modifier: Modifier = Modifier) {
         )
         TextFieldDesign(
             placeholder = "Password",
-            value = "",
-            editValue = {},
+            value = password,
+            editValue = {
+                editPassword(it)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(75.dp)

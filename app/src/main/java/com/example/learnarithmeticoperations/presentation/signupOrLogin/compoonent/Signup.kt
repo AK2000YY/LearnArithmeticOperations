@@ -16,7 +16,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SignupPart(modifier: Modifier = Modifier) {
+fun SignupPart(
+    modifier: Modifier = Modifier,
+    userName: String,
+    emailSignup: String,
+    passwordSignup: String,
+    confirmPassword: String,
+    toLoginOrSignup: () -> Unit,
+    signup: () -> Unit,
+    editEmailSignup: (String) -> Unit,
+    editUserName: (String) -> Unit,
+    editPasswordSignup: (String) -> Unit,
+    editConfirmPassword:  (String) -> Unit
+) {
     Column(
         modifier = modifier
     ) {
@@ -24,18 +36,29 @@ fun SignupPart(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1.5f),
-            type = "Signup"
+            type = "Signup",
+            toLoginOrSignup = { toLoginOrSignup() }
         )
         AllTextFieldSignup(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(7f)
+                .weight(7f),
+            userName = userName,
+            email = emailSignup,
+            password = passwordSignup,
+            confirmPassword = confirmPassword,
+            onChangeValueUserName = { editUserName(it) },
+            onChangeValueEmail = { editEmailSignup(it) },
+            onChangeValuePassword = { editPasswordSignup(it) },
+            onChangeValueConfirmPassword = { editConfirmPassword(it) }
         )
         ButtonDesigned(
             buttonName = " Signup ",
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { }
+                .clickable {
+                    signup()
+                }
                 .weight(1.5f)
                 .padding(bottom = 20.dp)
         )
@@ -43,7 +66,17 @@ fun SignupPart(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun AllTextFieldSignup(modifier: Modifier = Modifier) {
+fun AllTextFieldSignup(
+    modifier: Modifier = Modifier,
+    userName: String,
+    email: String,
+    password: String,
+    confirmPassword: String,
+    onChangeValueUserName: (String) -> Unit,
+    onChangeValueEmail: (String) -> Unit,
+    onChangeValuePassword: (String) -> Unit,
+    onChangeValueConfirmPassword: (String) -> Unit,
+) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -51,8 +84,10 @@ fun AllTextFieldSignup(modifier: Modifier = Modifier) {
     ) {
         TextFieldDesign(
             placeholder = "Full Name",
-            value = "",
-            editValue = {},
+            value = userName,
+            editValue = {
+                onChangeValueUserName(it)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(75.dp)
@@ -67,8 +102,10 @@ fun AllTextFieldSignup(modifier: Modifier = Modifier) {
         )
         TextFieldDesign(
             placeholder = "Email",
-            value = "",
-            editValue = {},
+            value = email,
+            editValue = {
+                onChangeValueEmail(it)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(75.dp)
@@ -83,8 +120,10 @@ fun AllTextFieldSignup(modifier: Modifier = Modifier) {
         )
         TextFieldDesign(
             placeholder = "Password",
-            value = "",
-            editValue = {},
+            value = password,
+            editValue = {
+                onChangeValuePassword(it)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(75.dp)
@@ -99,8 +138,10 @@ fun AllTextFieldSignup(modifier: Modifier = Modifier) {
         )
         TextFieldDesign(
             placeholder = "Confirm Password",
-            value = "",
-            editValue = {},
+            value = confirmPassword,
+            editValue = {
+                onChangeValueConfirmPassword(it)
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(75.dp)

@@ -1,9 +1,7 @@
 package com.example.learnarithmeticoperations.presentation.signupOrLogin.compoonent
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
@@ -18,7 +16,6 @@ import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.Speed
 import androidx.compose.material.icons.filled.SportsMartialArts
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,10 +29,24 @@ import com.example.learnarithmeticoperations.presentation.welcome.component.Text
 fun LoginORSignup(
     modifier: Modifier = Modifier,
     choosePart: ChoosePart,
+    userName: String,
+    emailLogin: String,
+    emailSignup: String,
+    passwordLogin: String,
+    passwordSignup: String,
+    confirmPassword: String,
     toSignup: () -> Unit,
     toLogin: () -> Unit,
     toLoginOrSignup: () -> Unit,
-    toCloseApp: () -> Unit
+    toCloseApp: () -> Unit,
+    login: () -> Unit,
+    signup: () -> Unit,
+    editEmailLogin: (String) -> Unit,
+    editEmailSignup: (String) -> Unit,
+    editUserName: (String) -> Unit,
+    editPasswordLogin: (String) -> Unit,
+    editPasswordSignup: (String) -> Unit,
+    editConfirmPassword:  (String) -> Unit
 ) {
     BackHandler {
         if(choosePart == ChoosePart.LoginOrSignup)
@@ -62,8 +73,23 @@ fun LoginORSignup(
                     else Color.Gray
                 ),
             choosePart = choosePart,
+            userName = userName,
+            emailLogin = emailLogin,
+            emailSignup = emailSignup,
+            passwordLogin = passwordLogin,
+            passwordSignup = passwordSignup,
+            confirmPassword = confirmPassword,
             toLogin = { toLogin() },
-            toSignup = { toSignup() }
+            toSignup = { toSignup() },
+            toLoginOrSignup =  { toLoginOrSignup() },
+            login = { login() },
+            signup = { signup() },
+            editEmailSignup = editEmailSignup,
+            editEmailLogin = editEmailLogin,
+            editUserName = editUserName,
+            editPasswordSignup = editPasswordSignup,
+            editPasswordLogin = editPasswordLogin,
+            editConfirmPassword = editConfirmPassword
         )
 
     }
@@ -88,8 +114,23 @@ fun UpPart(modifier: Modifier = Modifier) {
 fun DownPart(
     modifier: Modifier = Modifier,
     choosePart: ChoosePart,
+    userName: String,
+    emailLogin: String,
+    emailSignup: String,
+    passwordLogin: String,
+    passwordSignup: String,
+    confirmPassword: String,
     toSignup: () -> Unit,
-    toLogin: () -> Unit
+    toLogin: () -> Unit,
+    toLoginOrSignup: () -> Unit,
+    login: () -> Unit,
+    signup: () -> Unit,
+    editEmailLogin: (String) -> Unit,
+    editEmailSignup: (String) -> Unit,
+    editUserName: (String) -> Unit,
+    editPasswordLogin: (String) -> Unit,
+    editPasswordSignup: (String) -> Unit,
+    editConfirmPassword:  (String) -> Unit
 ) {
     when(choosePart){
         ChoosePart.LoginOrSignup -> LoginOrSignupPart(
@@ -97,8 +138,28 @@ fun DownPart(
             toSignup = { toSignup() },
             toLogin = { toLogin() }
         )
-        ChoosePart.Signup -> SignupPart(modifier = modifier)
-        else -> LoginPart(modifier = modifier)
+        ChoosePart.Signup -> SignupPart(
+            modifier = modifier,
+            userName = userName,
+            emailSignup = emailSignup,
+            passwordSignup = passwordSignup,
+            confirmPassword = confirmPassword,
+            toLoginOrSignup = { toLoginOrSignup() },
+            signup = { signup() },
+            editUserName = { editUserName(it) },
+            editEmailSignup = { editEmailSignup(it) },
+            editPasswordSignup = { editPasswordSignup(it) },
+            editConfirmPassword = { editConfirmPassword(it) }
+        )
+        else -> LoginPart(
+            modifier = modifier,
+            email = emailLogin,
+            password = passwordLogin,
+            toLoginOrSignup = { toLoginOrSignup() },
+            login = { login() },
+            editEmail = { editEmailLogin(it) },
+            editPassword = { editPasswordLogin(it) }
+        )
     }
 }
 

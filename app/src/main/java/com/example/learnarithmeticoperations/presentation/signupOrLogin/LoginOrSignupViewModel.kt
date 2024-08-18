@@ -24,6 +24,19 @@ class LoginOrSignupViewModel @Inject constructor(
     var choosePart by mutableStateOf(ChoosePart.LoginOrSignup)
         private set
 
+    var userName by mutableStateOf("")
+    fun editUserName(value: String){ userName = value }
+    var emailLogin by mutableStateOf("")
+    fun editEmailLogin(value: String){ emailLogin = value }
+    var emailSignup by mutableStateOf("")
+    fun editEmailSignup(value: String){ emailSignup = value }
+    var passwordLogin by mutableStateOf("")
+    fun editPasswordLogin(value: String){ passwordLogin = value }
+    var passwordSignup by mutableStateOf("")
+    fun editPasswordSignup(value: String){ passwordSignup = value }
+    var confirmPassword by mutableStateOf("")
+    fun editConfirmPassword(value: String){ confirmPassword = value }
+
     fun toLoginOrSignupPart() {
         choosePart = ChoosePart.LoginOrSignup
     }
@@ -36,22 +49,22 @@ class LoginOrSignupViewModel @Inject constructor(
         choosePart = ChoosePart.Login
     }
 
-    fun login(email: String, password: String) = viewModelScope.launch {
+    fun login() = viewModelScope.launch {
         loginOrSignupResponse = Response.Loading(true)
-        loginOrSignupResponse = repo.login(email, password)
+        loginOrSignupResponse = repo.login(emailLogin, passwordLogin)
     }
 
-    fun assertPassword(email: String, password: String, frequentPassword: String) {
+    fun assertPassword() {
         loginOrSignupResponse = Response.Loading(true)
-        if(password == frequentPassword){
-            signup(email, password)
+        if(passwordSignup == confirmPassword){
+            signup(userName, emailSignup, passwordSignup)
         }else {
             loginOrSignupResponse = Response.Failure("passwords are not assert")
         }
     }
 
-    private fun signup(email: String, password: String) = viewModelScope.launch {
-        loginOrSignupResponse = repo.signUp(email, password)
+    private fun signup(userName: String, email: String, password: String) = viewModelScope.launch {
+        loginOrSignupResponse = repo.signUp(userName, email, password)
     }
 
     fun showToast(

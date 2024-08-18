@@ -1,5 +1,6 @@
 package com.example.learnarithmeticoperations.presentation.signupOrLogin.compoonent
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -17,7 +18,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun LoginOrSignupTopBar(
     modifier: Modifier = Modifier,
-    type: String
+    type: String,
+    toLoginOrSignup: () -> Unit
 ) {
     Box(
         modifier = modifier,
@@ -28,7 +30,10 @@ fun LoginOrSignupTopBar(
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .padding(start = 20.dp)
-                .size(40.dp),
+                .size(40.dp)
+                .clickable {
+                    toLoginOrSignup()
+                },
             tint = Color.Black
         )
         Text(
