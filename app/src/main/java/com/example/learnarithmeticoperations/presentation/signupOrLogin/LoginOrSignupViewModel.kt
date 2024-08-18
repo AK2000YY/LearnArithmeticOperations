@@ -36,6 +36,7 @@ class LoginOrSignupViewModel @Inject constructor(
     fun editPasswordSignup(value: String){ passwordSignup = value }
     var confirmPassword by mutableStateOf("")
     fun editConfirmPassword(value: String){ confirmPassword = value }
+    var methodType by mutableStateOf("login")
 
     fun toLoginOrSignupPart() {
         choosePart = ChoosePart.LoginOrSignup
@@ -50,12 +51,14 @@ class LoginOrSignupViewModel @Inject constructor(
     }
 
     fun login() = viewModelScope.launch {
+        methodType = "login"
         loginOrSignupResponse = Response.Loading(true)
         loginOrSignupResponse = repo.login(emailLogin, passwordLogin)
     }
 
     fun assertPassword() {
         loginOrSignupResponse = Response.Loading(true)
+        methodType = "signup"
         if(passwordSignup == confirmPassword){
             signup(userName, emailSignup, passwordSignup)
         }else {

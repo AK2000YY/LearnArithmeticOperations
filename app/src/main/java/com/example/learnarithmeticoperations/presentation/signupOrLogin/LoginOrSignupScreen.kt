@@ -16,6 +16,7 @@ fun LoginOrSignupScreen(
     modifier: Modifier = Modifier,
     toMyApp: () -> Unit,
     closeApp: () -> Unit,
+    toVerifyScreen: () -> Unit,
     viewModel: LoginOrSignupViewModel = hiltViewModel()
 ) {
     Scaffold(
@@ -56,7 +57,9 @@ fun LoginOrSignupScreen(
             viewModel.showToast(LocalContext.current, e)
         }
         is Response.Success -> loginOrSignupResponse.apply {
-            toMyApp()
+            if(viewModel.methodType == "login")
+                toMyApp()
+            else toVerifyScreen()
         }
     }
 }

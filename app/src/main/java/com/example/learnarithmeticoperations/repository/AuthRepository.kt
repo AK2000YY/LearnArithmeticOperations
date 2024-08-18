@@ -4,6 +4,7 @@ import com.example.learnarithmeticoperations.response.Response
 import com.example.learnarithmeticoperations.response.Response.Success
 import com.example.learnarithmeticoperations.response.Response.Failure
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.userProfileChangeRequest
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -14,8 +15,8 @@ class AuthRepository @Inject constructor(
     private val auth: FirebaseAuth
 ) {
 
-    fun getAuthState(): Boolean =
-        auth.currentUser != null
+    fun getAuthState(): FirebaseUser? =
+        auth.currentUser
 
     suspend fun signUp(
         userName: String,
@@ -34,6 +35,14 @@ class AuthRepository @Inject constructor(
             Failure(e.message.toString())
         }
 
+    suspend fun verify(): Response =
+        try {
+            auth.currentUser?.sendEmailVerification()?.await()
+            Success
+        }catch(e: Exception) {
+            Failure(e.message.toString())
+        }
+
     suspend fun login(
         email: String,
         password: String
@@ -44,5 +53,4 @@ class AuthRepository @Inject constructor(
         }catch(e: Exception) {
             Failure(e.message.toString())
         }
-
 }

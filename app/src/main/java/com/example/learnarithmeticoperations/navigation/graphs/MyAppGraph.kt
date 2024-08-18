@@ -11,6 +11,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 fun NavGraphBuilder.myAppGraph(
     navController: NavHostController
@@ -26,7 +28,7 @@ fun NavGraphBuilder.myAppGraph(
                 contentAlignment = Alignment.Center
             ) {
                Text(
-                   text = "Test Complete",
+                   text = Firebase.auth.currentUser?.displayName!!,
                    style = MaterialTheme.typography.bodyLarge,
                    fontSize = 40.sp
                )

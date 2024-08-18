@@ -13,6 +13,7 @@ import kotlinx.coroutines.delay
 fun WelcomeScreen(
     navToSignupOrLogin: () -> Unit,
     navToMyApp: () -> Unit,
+    navToVerification: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: WelcomeViewModel = hiltViewModel()
 ) {
@@ -27,10 +28,10 @@ fun WelcomeScreen(
 
     LaunchedEffect(true) {
         delay(2000)
-        println("ak2000000000000y0y0y00y0y0yy0")
         when(viewModel.welcomeStatus) {
             Response.Success -> navToMyApp()
             Response.Failure("No User") -> navToSignupOrLogin()
+            Response.Loading(true) -> navToVerification()
             else -> {}
         }
     }

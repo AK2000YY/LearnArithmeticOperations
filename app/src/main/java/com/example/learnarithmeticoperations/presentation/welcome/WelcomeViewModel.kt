@@ -21,8 +21,11 @@ class WelcomeViewModel @Inject constructor(
         private set
 
     init {
-        welcomeStatus = if(repo.getAuthState()) Success
-        else Failure("No User")
+        welcomeStatus = if(repo.getAuthState() == null) Failure("No User")
+        else {
+            if(repo.getAuthState()?.isEmailVerified == false) Loading(true)
+            else Success
+        }
     }
 
 }
