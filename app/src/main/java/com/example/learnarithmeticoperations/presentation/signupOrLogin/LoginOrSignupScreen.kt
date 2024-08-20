@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.learnarithmeticoperations.data.SharedMethod
 import com.example.learnarithmeticoperations.presentation.signupOrLogin.compoonent.LoginORSignup
 import com.example.learnarithmeticoperations.presentation.signupOrLogin.compoonent.ProgressBar
 import com.example.learnarithmeticoperations.response.Response
@@ -26,7 +27,6 @@ fun LoginOrSignupScreen(
             modifier = modifier
                 .padding(padding),
             choosePart = viewModel.choosePart,
-            userName = viewModel.userName,
             emailLogin = viewModel.emailLogin,
             emailSignup = viewModel.emailSignup,
             passwordLogin = viewModel.passwordLogin,
@@ -37,10 +37,9 @@ fun LoginOrSignupScreen(
             toLoginOrSignup = { viewModel.toLoginOrSignupPart() },
             toCloseApp = { closeApp() },
             login = { viewModel.login() },
-            signup = { viewModel.assertPassword() },
+            signup = { viewModel.signup() },
             editEmailLogin = { viewModel.editEmailLogin(it) },
             editEmailSignup = { viewModel.editEmailSignup(it) },
-            editUserName = { viewModel.editUserName(it) },
             editPasswordLogin = { viewModel.editPasswordLogin(it) },
             editPasswordSignup = { viewModel.editPasswordSignup(it) },
             editConfirmPassword = { viewModel.editConfirmPassword(it) }
@@ -54,7 +53,7 @@ fun LoginOrSignupScreen(
                     .fillMaxSize()
             )
         is Response.Failure -> loginOrSignupResponse.apply {
-            viewModel.showToast(LocalContext.current, e)
+            SharedMethod.showToast(LocalContext.current, loginOrSignupResponse.e)
         }
         is Response.Success -> loginOrSignupResponse.apply {
             if(viewModel.methodType == "login")

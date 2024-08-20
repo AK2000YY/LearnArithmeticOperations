@@ -18,14 +18,12 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun SignupPart(
     modifier: Modifier = Modifier,
-    userName: String,
     emailSignup: String,
     passwordSignup: String,
     confirmPassword: String,
     toLoginOrSignup: () -> Unit,
     signup: () -> Unit,
     editEmailSignup: (String) -> Unit,
-    editUserName: (String) -> Unit,
     editPasswordSignup: (String) -> Unit,
     editConfirmPassword:  (String) -> Unit
 ) {
@@ -43,11 +41,9 @@ fun SignupPart(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(7f),
-            userName = userName,
             email = emailSignup,
             password = passwordSignup,
             confirmPassword = confirmPassword,
-            onChangeValueUserName = { editUserName(it) },
             onChangeValueEmail = { editEmailSignup(it) },
             onChangeValuePassword = { editPasswordSignup(it) },
             onChangeValueConfirmPassword = { editConfirmPassword(it) }
@@ -68,11 +64,9 @@ fun SignupPart(
 @Composable
 fun AllTextFieldSignup(
     modifier: Modifier = Modifier,
-    userName: String,
     email: String,
     password: String,
     confirmPassword: String,
-    onChangeValueUserName: (String) -> Unit,
     onChangeValueEmail: (String) -> Unit,
     onChangeValuePassword: (String) -> Unit,
     onChangeValueConfirmPassword: (String) -> Unit,
@@ -82,24 +76,7 @@ fun AllTextFieldSignup(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        TextFieldDesign(
-            placeholder = "Full Name",
-            value = userName,
-            editValue = {
-                onChangeValueUserName(it)
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(75.dp)
-                .padding(horizontal = 20.dp, vertical = 8.dp)
-                .border(
-                    BorderStroke(
-                        2.dp,
-                        Color.Black
-                    ),
-                    RoundedCornerShape(35.dp)
-                )
-        )
+
         TextFieldDesign(
             placeholder = "Email",
             value = email,

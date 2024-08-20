@@ -1,6 +1,5 @@
 package com.example.learnarithmeticoperations.presentation.verification
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.learnarithmeticoperations.repository.AuthRepository
 import com.example.learnarithmeticoperations.response.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,26 +26,12 @@ class VerificationViewModel @Inject constructor(
     }
 
     private fun reloadUserState() = viewModelScope.launch {
-        verificationResponse = try {
-            while(repo.getAuthState()?.isEmailVerified == false) {
-                delay(3000)
-                repo.getAuthState()?.reload()
-                Log.d("ak2000yy", "from viewModel ${repo.getAuthState()?.isEmailVerified}")
-                Response.Loading(true)
-            }
-            Response.Success
-        }catch(e: Exception) {
-            Response.Failure(e.message.toString())
-        }
+        verificationResponse = repo.reload()
+        Response.Success
     }
 
     fun verify() = viewModelScope.launch {
-        verificationLoadingResponse = try {
-            Response.Loading(true)
-            repo.verify()
-            Response.Success
-        }catch(e: Exception) {
-            Response.Failure(e.message.toString())
-        }
+        verificationLoadingResponse = Response.Loading(true)
+        verificationLoadingResponse = repo.verify()
     }
 }

@@ -1,8 +1,7 @@
 package com.example.learnarithmeticoperations.presentation.verification
 
+import android.content.Context
 import android.util.Log
-import android.widget.Toast.LENGTH_LONG
-import android.widget.Toast.makeText
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -27,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.learnarithmeticoperations.R
+import com.example.learnarithmeticoperations.data.SharedMethod
 import com.example.learnarithmeticoperations.presentation.signupOrLogin.compoonent.ProgressBar
 import com.example.learnarithmeticoperations.response.Response
 
@@ -37,6 +37,7 @@ fun VerificationScreen(
     sendOrNot: String,
     viewModel: VerificationViewModel = hiltViewModel()
 ) {
+    val context: Context = LocalContext.current
     LaunchedEffect(sendOrNot!="No") {
         Log.d("ak2000yy", "from verification screen $sendOrNot")
         if(sendOrNot != "No")
@@ -52,6 +53,7 @@ fun VerificationScreen(
             verify = { viewModel.verify() }
         )
     }
+
     when(val verificationLoadingResponse = viewModel.verificationLoadingResponse) {
         is Response.Loading ->
             if(verificationLoadingResponse.t)
@@ -60,10 +62,10 @@ fun VerificationScreen(
                         .fillMaxSize()
                 )
         is Response.Failure -> verificationLoadingResponse.apply {
-            makeText(LocalContext.current, verificationLoadingResponse.e, LENGTH_LONG).show()
+            SharedMethod.showToast(context, verificationLoadingResponse.e)
         }
         is Response.Success -> verificationLoadingResponse.apply {
-                makeText(LocalContext.current, "message is sent", LENGTH_LONG).show()
+            SharedMethod.showToast(context, "Email Verification sent")
         }
     }
 

@@ -29,7 +29,6 @@ import com.example.learnarithmeticoperations.presentation.welcome.component.Text
 fun LoginORSignup(
     modifier: Modifier = Modifier,
     choosePart: ChoosePart,
-    userName: String,
     emailLogin: String,
     emailSignup: String,
     passwordLogin: String,
@@ -43,7 +42,6 @@ fun LoginORSignup(
     signup: () -> Unit,
     editEmailLogin: (String) -> Unit,
     editEmailSignup: (String) -> Unit,
-    editUserName: (String) -> Unit,
     editPasswordLogin: (String) -> Unit,
     editPasswordSignup: (String) -> Unit,
     editConfirmPassword:  (String) -> Unit
@@ -73,7 +71,6 @@ fun LoginORSignup(
                     else Color.Gray
                 ),
             choosePart = choosePart,
-            userName = userName,
             emailLogin = emailLogin,
             emailSignup = emailSignup,
             passwordLogin = passwordLogin,
@@ -86,7 +83,6 @@ fun LoginORSignup(
             signup = { signup() },
             editEmailSignup = editEmailSignup,
             editEmailLogin = editEmailLogin,
-            editUserName = editUserName,
             editPasswordSignup = editPasswordSignup,
             editPasswordLogin = editPasswordLogin,
             editConfirmPassword = editConfirmPassword
@@ -114,7 +110,6 @@ fun UpPart(modifier: Modifier = Modifier) {
 fun DownPart(
     modifier: Modifier = Modifier,
     choosePart: ChoosePart,
-    userName: String,
     emailLogin: String,
     emailSignup: String,
     passwordLogin: String,
@@ -127,7 +122,6 @@ fun DownPart(
     signup: () -> Unit,
     editEmailLogin: (String) -> Unit,
     editEmailSignup: (String) -> Unit,
-    editUserName: (String) -> Unit,
     editPasswordLogin: (String) -> Unit,
     editPasswordSignup: (String) -> Unit,
     editConfirmPassword:  (String) -> Unit
@@ -140,13 +134,11 @@ fun DownPart(
         )
         ChoosePart.Signup -> SignupPart(
             modifier = modifier,
-            userName = userName,
             emailSignup = emailSignup,
             passwordSignup = passwordSignup,
             confirmPassword = confirmPassword,
             toLoginOrSignup = { toLoginOrSignup() },
             signup = { signup() },
-            editUserName = { editUserName(it) },
             editEmailSignup = { editEmailSignup(it) },
             editPasswordSignup = { editPasswordSignup(it) },
             editConfirmPassword = { editConfirmPassword(it) }

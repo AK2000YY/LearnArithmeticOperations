@@ -11,4 +11,6 @@ object Constants {
     //my app route
 
 
+    const val EMPTY_MESSAGE = "some thing is error"
+
 }

@@ -1,8 +1,5 @@
 package com.example.learnarithmeticoperations.presentation.signupOrLogin
 
-import android.content.Context
-import android.widget.Toast.LENGTH_LONG
-import android.widget.Toast.makeText
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -24,8 +21,6 @@ class LoginOrSignupViewModel @Inject constructor(
     var choosePart by mutableStateOf(ChoosePart.LoginOrSignup)
         private set
 
-    var userName by mutableStateOf("")
-    fun editUserName(value: String){ userName = value }
     var emailLogin by mutableStateOf("")
     fun editEmailLogin(value: String){ emailLogin = value }
     var emailSignup by mutableStateOf("")
@@ -56,25 +51,11 @@ class LoginOrSignupViewModel @Inject constructor(
         loginOrSignupResponse = repo.login(emailLogin, passwordLogin)
     }
 
-    fun assertPassword() {
-        loginOrSignupResponse = Response.Loading(true)
+    fun signup() = viewModelScope.launch {
         methodType = "signup"
-        if(passwordSignup == confirmPassword){
-            signup(userName, emailSignup, passwordSignup)
-        }else {
-            loginOrSignupResponse = Response.Failure("passwords are not assert")
-        }
+        loginOrSignupResponse = Response.Loading(true)
+        loginOrSignupResponse = repo.signUp(emailSignup, passwordSignup, confirmPassword)
     }
 
-    private fun signup(userName: String, email: String, password: String) = viewModelScope.launch {
-        loginOrSignupResponse = repo.signUp(userName, email, password)
-    }
-
-    fun showToast(
-        context: Context,
-        message: String
-    ) {
-        makeText(context, message, LENGTH_LONG).show()
-    }
 }
 
