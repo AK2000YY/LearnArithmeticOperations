@@ -1,5 +1,10 @@
 package com.example.learnarithmeticoperations.presentation.myApp
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Bookmark
 import androidx.compose.material.icons.rounded.Calculate
@@ -16,6 +21,8 @@ import androidx.compose.material.BottomNavigationItem
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -24,10 +31,10 @@ import com.example.learnarithmeticoperations.navigation.Screen
 
 val listOfScreen = listOf(
     Pair(Screen.ProfileScreen, Icons.Rounded.Person),
-    Pair(Screen.LearningMapScreen, Icons.Rounded.Calculate),
-    Pair(Screen.SavedQuestionScreen, Icons.Rounded.Bookmark),
-    Pair(Screen.CompetitionScreen, Icons.Rounded.SportsMartialArts),
     Pair(Screen.OrderScreen, Icons.Rounded.Shield),
+    Pair(Screen.CompetitionScreen, Icons.Rounded.SportsMartialArts),
+    Pair(Screen.SavedQuestionScreen, Icons.Rounded.Bookmark),
+    Pair(Screen.LearningMapScreen, Icons.Rounded.Calculate),
 )
 
 @Composable
@@ -53,7 +60,28 @@ fun BottomBar(
                         launchSingleTop = true
                         restoreState = true
                     }
-                }
+                },
+                modifier = Modifier
+                    .padding(8.dp)
+                    .background(
+                        if(currentDestination?.hierarchy?.any { it.route == screen.first.route } == true) {
+                            MaterialTheme.colorScheme.primary
+                        }else {
+                            Color.Transparent
+                        },
+                        RoundedCornerShape(10.dp)
+                    )
+                    .border(
+                        BorderStroke(
+                            4.dp,
+                            if(currentDestination?.hierarchy?.any { it.route == screen.first.route } == true) {
+                                MaterialTheme.colorScheme.onPrimary
+                            }else {
+                                Color.Transparent
+                            },
+                        ),
+                        RoundedCornerShape(10.dp)
+                    )
             )
         }
     }
