@@ -8,6 +8,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
+import com.example.learnarithmeticoperations.core.Constants.MY_APP_ROUTE
 import com.example.learnarithmeticoperations.core.Constants.REGISTER_ROUTE
 import com.example.learnarithmeticoperations.core.Constants.SEND_OR_NOT
 import com.example.learnarithmeticoperations.core.Constants.WELCOME_SCREEN
@@ -33,7 +34,7 @@ fun NavGraphBuilder.registerGraph(
                 },
                 {
                     navController.popBackStack()
-                    navController.navigate("test")
+                    navController.navigate(MY_APP_ROUTE)
                 },
                 {
                     navController.popBackStack()
@@ -49,7 +50,7 @@ fun NavGraphBuilder.registerGraph(
                     .fillMaxSize(),
                 {
                     navController.popBackStack()
-                    navController.navigate("test")
+                    navController.navigate(MY_APP_ROUTE)
                 },
                 {
                     navController.popBackStack()
@@ -73,7 +74,7 @@ fun NavGraphBuilder.registerGraph(
                     .fillMaxSize(),
                 {
                     navController.popBackStack()
-                    navController.navigate("test")
+                    navController.navigate(MY_APP_ROUTE)
                 },
                 sendOrNot = it.arguments?.getString(SEND_OR_NOT)!!
             )

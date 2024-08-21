@@ -1,36 +1,20 @@
 package com.example.learnarithmeticoperations.navigation.graphs
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.google.firebase.Firebase
-import com.google.firebase.auth.auth
+import com.example.learnarithmeticoperations.core.Constants.MY_APP_ROUTE
+import com.example.learnarithmeticoperations.navigation.Screen
+import com.example.learnarithmeticoperations.presentation.myApp.MyAppScreen
 
-fun NavGraphBuilder.myAppGraph(
-) {
+fun NavGraphBuilder.myAppGraph() {
     navigation(
-        route = "test",
-        startDestination = "test1"
+        route = MY_APP_ROUTE,
+        startDestination = Screen.NavigationBarScreen.route
     ) {
-        composable("test1") {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-               Text(
-                   text = Firebase.auth.currentUser?.displayName.toString(),
-                   style = MaterialTheme.typography.bodyLarge,
-                   fontSize = 40.sp
-               )
-            }
+        composable(Screen.NavigationBarScreen.route) {
+            MyAppScreen()
         }
+
     }
 }
