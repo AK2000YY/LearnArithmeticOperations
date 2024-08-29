@@ -26,7 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.learnarithmeticoperations.R
-import com.example.learnarithmeticoperations.data.SharedMethod
+import com.example.learnarithmeticoperations.core.SharedMethod
 import com.example.learnarithmeticoperations.presentation.signupOrLogin.compoonent.ProgressBar
 import com.example.learnarithmeticoperations.response.Response
 

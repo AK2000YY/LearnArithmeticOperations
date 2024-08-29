@@ -1,4 +1,4 @@
-package com.example.learnarithmeticoperations.data
+package com.example.learnarithmeticoperations.core
 
 import android.content.Context
 import android.widget.Toast.LENGTH_LONG

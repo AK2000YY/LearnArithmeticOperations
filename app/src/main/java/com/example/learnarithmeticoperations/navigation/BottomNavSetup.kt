@@ -1,14 +1,16 @@
 package com.example.learnarithmeticoperations.navigation
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-
+import com.example.learnarithmeticoperations.presentation.competition.CompetitionScreen
+import com.example.learnarithmeticoperations.presentation.learningMap.LearningMapScreen
+import com.example.learnarithmeticoperations.presentation.order.OrderScreen
+import com.example.learnarithmeticoperations.presentation.profile.ProfileScreen
+import com.example.learnarithmeticoperations.presentation.savedQuestion.SavedQuestionScreen
 
 @Composable
 fun BottomNavSetup(
@@ -21,44 +23,34 @@ fun BottomNavSetup(
         startDestination = Screen.LearningMapScreen.route
     ) {
         composable(Screen.LearningMapScreen.route) {
-            Box(
-                modifier = modifier,
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "Learning")
-            }
+            LearningMapScreen(
+                modifier = Modifier
+                    .fillMaxSize()
+            )
         }
         composable(Screen.SavedQuestionScreen.route) {
-            Box(
-                modifier = modifier,
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "saved")
-            }
+            SavedQuestionScreen(
+                modifier = Modifier
+                    .fillMaxSize()
+            )
         }
         composable(Screen.CompetitionScreen.route) {
-            Box(
-                modifier = modifier,
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "competition")
-            }
+            CompetitionScreen(
+                modifier = Modifier
+                    .fillMaxSize()
+            )
         }
         composable(Screen.OrderScreen.route) {
-            Box(
-                modifier = modifier,
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "order")
-            }
+            OrderScreen(
+                modifier = Modifier
+                    .fillMaxSize()
+            )
         }
         composable(Screen.ProfileScreen.route) {
-            Box(
-                modifier = modifier,
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "profile")
-            }
+            ProfileScreen(
+                modifier = Modifier
+                    .fillMaxSize()
+            )
         }
     }
 }

@@ -6,7 +6,6 @@ import com.example.learnarithmeticoperations.response.Response.Success
 import com.example.learnarithmeticoperations.response.Response.Failure
 import com.example.learnarithmeticoperations.response.Response.Loading
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -60,12 +59,10 @@ class AuthRepository @Inject constructor(
 
     suspend fun reload(): Response =
         try {
-            while(auth.currentUser?.isEmailVerified==false){
-                auth.currentUser?.reload()?.await()
-                delay(3000)
-            }
+            auth.currentUser?.reload()?.await()
             Success
         }catch(e: Exception) {
             Failure(e.message?:EMPTY_MESSAGE)
         }
+
 }

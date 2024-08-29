@@ -42,6 +42,7 @@ androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navig
 com-google-firebase-bom = { group =  "com.google.firebase", name = "firebase-bom", version.ref = "firbaseBom" }
 com-google-firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 com-google-firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
+com-google-firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
 
 androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
 

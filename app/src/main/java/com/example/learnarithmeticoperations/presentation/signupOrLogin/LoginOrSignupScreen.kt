@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.learnarithmeticoperations.data.SharedMethod
+import com.example.learnarithmeticoperations.core.SharedMethod
 import com.example.learnarithmeticoperations.presentation.signupOrLogin.compoonent.LoginORSignup
 import com.example.learnarithmeticoperations.presentation.signupOrLogin.compoonent.ProgressBar
 import com.example.learnarithmeticoperations.response.Response
