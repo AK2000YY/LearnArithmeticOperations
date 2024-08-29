@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.learnarithmeticoperations.repository.AuthRepository
-import com.example.learnarithmeticoperations.response.Response
+import com.example.learnarithmeticoperations.data.repository.AuthRepository
+import com.example.learnarithmeticoperations.domain.model.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class LoginOrSignupViewModel @Inject constructor(
     private val repo: AuthRepository
 ): ViewModel() {
-    var loginOrSignupResponse by mutableStateOf<Response>(Response.Loading(false))
+    var loginOrSignupResponse by mutableStateOf<Response<Unit>>(Response.Loading(false))
         private set
 
     var choosePart by mutableStateOf(ChoosePart.LoginOrSignup)

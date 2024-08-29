@@ -1,8 +1,9 @@
 package com.example.learnarithmeticoperations.di
 
-import com.example.learnarithmeticoperations.repository.AuthRepository
-import com.example.learnarithmeticoperations.repository.StoreRepository
+import com.example.learnarithmeticoperations.data.repository.AuthRepository
+import com.example.learnarithmeticoperations.data.repository.StoreRepository
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -13,32 +14,36 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(ViewModelComponent::class)
 class AppModulo {
 
     @Provides
-    fun provideAuthRepository(): AuthRepository =
-        AuthRepository(
-            auth = Firebase.auth
-        )
+    fun provideFireBaseAuth(): FirebaseAuth =
+        Firebase.auth
 
     @Provides
     fun provideFireBaseFireStore(): FirebaseFirestore =
         Firebase.firestore
 
+    @Provides
+    fun provideAuthRepository(
+        auth: FirebaseAuth
+    ): AuthRepository =
+        AuthRepository(
+            auth
+        )
 
     @Provides
     fun provideQuestionReference(
-        db: FirebaseFirestore
+        db: FirebaseFirestore,
+        auth: FirebaseAuth
     ): CollectionReference =
-        db.collection("question")
-
+        db.collection("user").document(auth.currentUser!!.uid).collection("question")
 
     @Provides
     fun provideStoreRepository(
-        ref: CollectionReference
+        ref: CollectionReference,
     ): StoreRepository =
         StoreRepository(
             ref

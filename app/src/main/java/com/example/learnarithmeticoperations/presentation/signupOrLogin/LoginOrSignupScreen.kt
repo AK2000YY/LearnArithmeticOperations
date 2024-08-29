@@ -10,7 +10,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.learnarithmeticoperations.core.SharedMethod
 import com.example.learnarithmeticoperations.presentation.signupOrLogin.compoonent.LoginORSignup
 import com.example.learnarithmeticoperations.presentation.signupOrLogin.compoonent.ProgressBar
-import com.example.learnarithmeticoperations.response.Response
+import com.example.learnarithmeticoperations.domain.model.Response
 
 @Composable
 fun LoginOrSignupScreen(
@@ -55,7 +55,7 @@ fun LoginOrSignupScreen(
         is Response.Failure -> loginOrSignupResponse.apply {
             SharedMethod.showToast(LocalContext.current, loginOrSignupResponse.e)
         }
-        is Response.Success -> loginOrSignupResponse.apply {
+        is Response.Success<*> -> loginOrSignupResponse.apply {
             if(viewModel.methodType == "login")
                 toMyApp()
             else toVerifyScreen()

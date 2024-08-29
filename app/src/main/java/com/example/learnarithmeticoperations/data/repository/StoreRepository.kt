@@ -1,7 +1,9 @@
-package com.example.learnarithmeticoperations.repository
+package com.example.learnarithmeticoperations.data.repository
 
-import com.example.learnarithmeticoperations.data.Question
-import com.example.learnarithmeticoperations.response.NewResponse
+import com.example.learnarithmeticoperations.core.Constants.EMPTY_MESSAGE
+import com.example.learnarithmeticoperations.domain.model.Question
+import com.example.learnarithmeticoperations.domain.model.Response.Success
+import com.example.learnarithmeticoperations.domain.model.Response.Failure
 import com.google.firebase.firestore.CollectionReference
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
@@ -23,9 +25,9 @@ class StoreRepository @Inject constructor(
                         answer = it.getString("answer")
                     )
                 }
-                NewResponse.Success(questions)
+                Success(questions)
             }else {
-                NewResponse.Failure(e)
+                Failure(e?.message?: EMPTY_MESSAGE)
             }
             trySend(questionResponse)
         }
@@ -37,8 +39,8 @@ class StoreRepository @Inject constructor(
     suspend fun createSolvedQuestion(question: HashMap<String, Any>) =
         try {
             ref.add(question).await()
-            NewResponse.Success(true)
+            Success(true)
         }catch (e: Exception) {
-            NewResponse.Failure(e)
+            Failure(e.message?: EMPTY_MESSAGE)
         }
 }

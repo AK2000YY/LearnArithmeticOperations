@@ -28,7 +28,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.learnarithmeticoperations.R
 import com.example.learnarithmeticoperations.core.SharedMethod
 import com.example.learnarithmeticoperations.presentation.signupOrLogin.compoonent.ProgressBar
-import com.example.learnarithmeticoperations.response.Response
+import com.example.learnarithmeticoperations.domain.model.Response
 
 @Composable
 fun VerificationScreen(
@@ -64,12 +64,12 @@ fun VerificationScreen(
         is Response.Failure -> verificationLoadingResponse.apply {
             SharedMethod.showToast(context, verificationLoadingResponse.e)
         }
-        is Response.Success -> verificationLoadingResponse.apply {
+        is Response.Success<*> -> verificationLoadingResponse.apply {
             SharedMethod.showToast(context, "Email Verification sent")
         }
     }
 
-    if(viewModel.verificationResponse == Response.Success)
+    if(viewModel.verificationResponse == Response.Success(Unit))
         viewModel.verificationResponse.apply {
             toMyApp()
         }

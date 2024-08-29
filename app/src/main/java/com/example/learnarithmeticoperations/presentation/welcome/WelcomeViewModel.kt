@@ -5,9 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.learnarithmeticoperations.repository.AuthRepository
-import com.example.learnarithmeticoperations.response.Response
-import com.example.learnarithmeticoperations.response.Response.Loading
+import com.example.learnarithmeticoperations.data.repository.AuthRepository
+import com.example.learnarithmeticoperations.domain.model.Response
+import com.example.learnarithmeticoperations.domain.model.Response.Loading
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -17,7 +17,7 @@ class WelcomeViewModel @Inject constructor(
     private val repo: AuthRepository
 ): ViewModel() {
 
-    var welcomeStatus by mutableStateOf<Response>(Loading(false))
+    var welcomeStatus by mutableStateOf<Response<Unit>>(Loading(false))
         private set
 
     init {

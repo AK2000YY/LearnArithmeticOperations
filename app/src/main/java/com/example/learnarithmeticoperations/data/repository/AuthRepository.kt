@@ -1,11 +1,12 @@
-package com.example.learnarithmeticoperations.repository
+package com.example.learnarithmeticoperations.data.repository
 
 import com.example.learnarithmeticoperations.core.Constants.EMPTY_MESSAGE
-import com.example.learnarithmeticoperations.response.Response
-import com.example.learnarithmeticoperations.response.Response.Success
-import com.example.learnarithmeticoperations.response.Response.Failure
-import com.example.learnarithmeticoperations.response.Response.Loading
+import com.example.learnarithmeticoperations.domain.model.Response
+import com.example.learnarithmeticoperations.domain.model.Response.Success
+import com.example.learnarithmeticoperations.domain.model.Response.Failure
+import com.example.learnarithmeticoperations.domain.model.Response.Loading
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -15,21 +16,21 @@ class AuthRepository @Inject constructor(
     private val auth: FirebaseAuth
 ) {
 
-    fun getAuthState(): Response =
+    fun getAuthState(): Response<Unit> =
         if(auth.currentUser == null) Failure("No User")
         else
             if(auth.currentUser?.isEmailVerified == false) Loading(true)
-            else Success
+            else Success(Unit)
 
     suspend fun signUp(
         email: String,
         password: String,
         confirmPassword: String
-    ): Response =
+    ): Response<Unit> =
         try {
             if(password == confirmPassword){
                 auth.createUserWithEmailAndPassword(email, password).await()
-                Success
+                Success(Unit)
             }else{
                 Failure("passwords aren't match")
             }
@@ -38,10 +39,10 @@ class AuthRepository @Inject constructor(
             Failure(e.message?: EMPTY_MESSAGE)
         }
 
-    suspend fun verify(): Response =
+    suspend fun verify(): Response<Unit> =
         try {
             auth.currentUser?.sendEmailVerification()?.await()
-            Success
+            Success(Unit)
         }catch(e: Exception) {
             Failure(e.message?: EMPTY_MESSAGE)
         }
@@ -49,20 +50,24 @@ class AuthRepository @Inject constructor(
     suspend fun login(
         email: String,
         password: String
-    ): Response =
+    ): Response<Unit> =
         try {
             auth.signInWithEmailAndPassword(email, password).await()
-            Success
+            Success(Unit)
         }catch(e: Exception) {
             Failure(e.message?: EMPTY_MESSAGE)
         }
 
-    suspend fun reload(): Response =
+    suspend fun reload(): Response<Unit> =
         try {
-            auth.currentUser?.reload()?.await()
-            Success
+            while(!auth.currentUser!!.isEmailVerified) {
+                auth.currentUser?.reload()?.await()
+                delay(3000)
+            }
+            Success(Unit)
         }catch(e: Exception) {
             Failure(e.message?:EMPTY_MESSAGE)
         }
+
 
 }

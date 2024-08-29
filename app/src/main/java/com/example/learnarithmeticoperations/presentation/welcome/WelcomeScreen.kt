@@ -6,7 +6,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.learnarithmeticoperations.presentation.welcome.component.Welcome
-import com.example.learnarithmeticoperations.response.Response
+import com.example.learnarithmeticoperations.domain.model.Response
 import kotlinx.coroutines.delay
 
 @Composable
@@ -29,7 +29,7 @@ fun WelcomeScreen(
     LaunchedEffect(true) {
         delay(2000)
         when(viewModel.welcomeStatus) {
-            Response.Success -> navToMyApp()
+            Response.Success(Unit) -> navToMyApp()
             Response.Failure("No User") -> navToSignupOrLogin()
             Response.Loading(true) -> navToVerification()
             else -> {}

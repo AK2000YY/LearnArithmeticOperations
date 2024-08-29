@@ -1,4 +1,4 @@
-package com.example.learnarithmeticoperations.data
+package com.example.learnarithmeticoperations.domain.model
 
 import com.google.firebase.firestore.Exclude
 

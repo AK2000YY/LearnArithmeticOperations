@@ -23,8 +23,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.learnarithmeticoperations.core.SharedMethod
+import com.example.learnarithmeticoperations.domain.model.Question
 import com.example.learnarithmeticoperations.presentation.signupOrLogin.compoonent.ProgressBar
-import com.example.learnarithmeticoperations.response.NewResponse
+import com.example.learnarithmeticoperations.domain.model.Response
 
 @Composable
 fun LearningMapScreen(
@@ -42,11 +43,12 @@ fun LearningMapScreen(
             contentAlignment = Alignment.Center
         ) {
             when(val questionResponse = viewModel.questionResponse) {
-                is NewResponse.Loading ->
-                    ProgressBar()
-                is NewResponse.Failure ->
-                    SharedMethod.showToast(LocalContext.current, questionResponse.e?.message.toString())
-                is NewResponse.Success -> {
+                is Response.Loading ->
+                    if(questionResponse.t)
+                        ProgressBar()
+                is Response.Failure ->
+                    SharedMethod.showToast(LocalContext.current, questionResponse.e)
+                is Response.Success<List<Question>> -> {
                     LazyColumn(
                         modifier = Modifier
                             .background(MaterialTheme.colorScheme.background)
@@ -56,7 +58,8 @@ fun LearningMapScreen(
                                 Text(text = "Add")
                             }
                         }
-                        items(questionResponse.data?: listOf()) {
+
+                        items(questionResponse.data) {
                             Column {
                                 Text(text = it.id.toString())
                                 Text(text = it.title.toString())

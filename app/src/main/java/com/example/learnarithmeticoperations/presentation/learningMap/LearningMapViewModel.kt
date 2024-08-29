@@ -5,10 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.learnarithmeticoperations.data.Question
-import com.example.learnarithmeticoperations.repository.StoreRepository
-import com.example.learnarithmeticoperations.response.NewResponse
-import com.example.learnarithmeticoperations.response.Response
+import com.example.learnarithmeticoperations.domain.model.Question
+import com.example.learnarithmeticoperations.data.repository.StoreRepository
+import com.example.learnarithmeticoperations.domain.model.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,10 +17,10 @@ class LearningMapViewModel @Inject constructor(
     private val repo: StoreRepository
 ) : ViewModel() {
 
-    var questionResponse by mutableStateOf<NewResponse<List<Question>>>(NewResponse.Loading)
+    var questionResponse by mutableStateOf<Response<List<Question>>>(Response.Loading(false))
         private set
 
-    var createResponse by mutableStateOf<NewResponse<Boolean>>(NewResponse.Loading)
+    var createResponse by mutableStateOf<Response<Boolean>>(Response.Loading(false))
 
     init {
         getQuestions()
@@ -34,7 +33,7 @@ class LearningMapViewModel @Inject constructor(
     }
 
     fun addQuestion(question: HashMap<String, Any>) = viewModelScope.launch {
-        createResponse = NewResponse.Loading
+        createResponse = Response.Loading(true)
         createResponse = repo.createSolvedQuestion(question)
     }
 }
