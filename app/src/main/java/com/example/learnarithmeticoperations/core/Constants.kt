@@ -11,7 +11,7 @@ object Constants {
     //my app route
     const val MY_APP_ROUTE = "my app route"
     const val NAVIGATION_BAR = "navigation bar"
-    const val LEARNING_MAP = "learning map"
+    const val LEVEL_SCREEN = "level"
     const val SAVED_QUESTION = "saved question"
     const val COMPETITION = "competition"
     const val ORDER = "order"
@@ -21,5 +21,9 @@ object Constants {
 
 
     const val EMPTY_MESSAGE = "some thing is error"
+    const val USER = "user"
+    const val LEVEL = "level"
+    const val UNIT = "unit"
+    const val QUESTION = "question"
 
 }

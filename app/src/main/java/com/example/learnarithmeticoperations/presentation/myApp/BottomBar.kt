@@ -34,7 +34,7 @@ val listOfScreen = listOf(
     Pair(Screen.OrderScreen, Icons.Rounded.Shield),
     Pair(Screen.CompetitionScreen, Icons.Rounded.SportsMartialArts),
     Pair(Screen.SavedQuestionScreen, Icons.Rounded.Bookmark),
-    Pair(Screen.LearningMapScreen, Icons.Rounded.Calculate),
+    Pair(Screen.LevelScreen, Icons.Rounded.Calculate),
 )
 
 @Composable

@@ -7,7 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.learnarithmeticoperations.presentation.competition.CompetitionScreen
-import com.example.learnarithmeticoperations.presentation.learningMap.LearningMapScreen
+import com.example.learnarithmeticoperations.presentation.level.LevelScreen
 import com.example.learnarithmeticoperations.presentation.order.OrderScreen
 import com.example.learnarithmeticoperations.presentation.profile.ProfileScreen
 import com.example.learnarithmeticoperations.presentation.savedQuestion.SavedQuestionScreen
@@ -20,10 +20,10 @@ fun BottomNavSetup(
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = Screen.LearningMapScreen.route
+        startDestination = Screen.LevelScreen.route
     ) {
-        composable(Screen.LearningMapScreen.route) {
-            LearningMapScreen(
+        composable(Screen.LevelScreen.route) {
+            LevelScreen(
                 modifier = Modifier
                     .fillMaxSize()
             )

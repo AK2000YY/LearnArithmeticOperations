@@ -1,7 +1,7 @@
 package com.example.learnarithmeticoperations.navigation
 
 import com.example.learnarithmeticoperations.core.Constants.COMPETITION
-import com.example.learnarithmeticoperations.core.Constants.LEARNING_MAP
+import com.example.learnarithmeticoperations.core.Constants.LEVEL_SCREEN
 import com.example.learnarithmeticoperations.core.Constants.LOGIN_OR_SIGNUP
 import com.example.learnarithmeticoperations.core.Constants.NAVIGATION_BAR
 import com.example.learnarithmeticoperations.core.Constants.ORDER
@@ -19,7 +19,7 @@ sealed class Screen(val route: String) {
             this.route.replace("{$SEND_OR_NOT}", value)
     }
     data object NavigationBarScreen: Screen(NAVIGATION_BAR)
-    data object LearningMapScreen: Screen(LEARNING_MAP)
+    data object LevelScreen: Screen(LEVEL_SCREEN)
     data object SavedQuestionScreen: Screen(SAVED_QUESTION)
     data object CompetitionScreen: Screen(COMPETITION)
     data object OrderScreen: Screen(ORDER)
